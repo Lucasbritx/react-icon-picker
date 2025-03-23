@@ -6,6 +6,7 @@ const meta: Meta<typeof IconPicker> = {
   title: "Componentes/IconPicker",
   component: IconPicker,
   args: {
+    title: "Selecione um ícone:",
   },
 };
 

@@ -1,8 +1,12 @@
 import { useState, useRef } from "react";
 import * as FaIcons from "react-icons/fa";
 
+interface IconPickerProps {
+  title?: string;
+}
+
 // TODO add props(value?, icons)
-export default function IconPicker() {
+export default function IconPicker({ title = "" }: IconPickerProps) {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -17,9 +21,9 @@ export default function IconPicker() {
   };
 
   return (
-    <div className="relative w-64">
+    <div className="relative w-64 flex">
       <label className="block text-sm font-medium text-gray-700 mb-2">
-        Escolha um ícone:
+        {title}
       </label>
 
       <button
