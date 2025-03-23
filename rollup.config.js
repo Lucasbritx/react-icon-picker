@@ -4,7 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 export default {
-  IconPicker: "src/index.tsx",
+  input: "src/index.tsx",
   output: [
     {
       file: "dist/index.js",
