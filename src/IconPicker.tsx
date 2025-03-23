@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import * as FaIcons from "react-icons/fa";
 
+// TODO add props(value?, icons)
 export default function IconPicker() {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
