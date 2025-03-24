@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import * as FaIcons from "react-icons/fa";
+import "./IconPicker.css";
 
 interface IconPickerProps {
   title?: string;
@@ -21,8 +22,8 @@ export default function IconPicker({ title = "" }: IconPickerProps) {
   };
 
   return (
-    <div className="relative w-64 flex">
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+    <div className="icon-picker-container">
+      <label className="title">
         {title}
       </label>
 
