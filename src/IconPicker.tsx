@@ -1,16 +1,54 @@
-import { useState, useRef } from "react";
+import { useState, useRef, use, useEffect } from "react";
 import * as FaIcons from "react-icons/fa";
 import "./IconPicker.css";
 
 interface IconPickerProps {
   title?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  icons?: string[];
+  iconSize?: number;
+  iconColor?: string;
 }
 
-// TODO add props(value?, icons)
-export default function IconPicker({ title = "" }: IconPickerProps) {
+export default function IconPicker({
+  title = "",
+  value,
+  onChange,
+  icons = [],
+  iconSize = 24,
+  iconColor = "#000",
+}: IconPickerProps) {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (value) {
+      setSelectedIcon(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedIcon || "");
+    }
+  }, [selectedIcon, onChange]);
 
   const faIcons = Object.entries(FaIcons)
     .filter(([key]) => key.startsWith("Fa"))
@@ -23,9 +61,7 @@ export default function IconPicker({ title = "" }: IconPickerProps) {
 
   return (
     <div className="icon-picker-container">
-      <label className="title">
-        {title}
-      </label>
+      <label className="title">{title}</label>
 
       <button
         className="flex items-center justify-between w-full px-4 py-2 border rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
